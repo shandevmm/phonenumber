@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Number Submission Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 50px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        input[type="text"], input[type="button"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            box-sizing: border-box;
+        }
+        input[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h2>Enter Your Phone Number</h2>
+    <form id="myForm">
+        Phone Number: <input type="text" id="phone" name="phone" required><br>
+        <input type="button" value="Submit" onclick="submitForm()">
+    </form>
+    <script>
+        function submitForm() {
+            const form = document.getElementById('myForm');
+            const formData = new FormData(form);
+            const data = {
+                phone: formData.get('phone')
+            };
+
+            fetch('https://script.google.com/macros/s/AKfycbzCvVaL2awN4QLjpnlo_tFROcIG1LgNN1IWd0Y-x0LlINzYriMnC5auT1JKVAZ8sPGw/exec', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert('Data submitted successfully!');
+                form.reset();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
